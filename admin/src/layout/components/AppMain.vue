@@ -7,7 +7,7 @@
     </transition>
 
     <!-- 底部信息 连接和版权 -->
-    <div class="footers">
+    <div class="footers" v-if="showFooter">
       <el-link v-for="item in links" :key="item.key" :href="item.href" target="_blank" class="mr15 mb20">{{item.title}}</el-link>
       <div class="title mb15" v-text="copyright"></div>
     </div>
@@ -19,6 +19,7 @@ export default {
   name: 'AppMain',
   data () {
     return {
+      showFooter: false,
       links: [
         {
           title: '官网',
