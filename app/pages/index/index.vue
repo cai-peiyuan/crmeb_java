@@ -84,7 +84,8 @@
 								<view class="tit line1" :class='item.isUse ? "pricehui" : "titActive" '>{{item.name}}
 								</view>
 								<view class="price" :class='item.isUse ? "pricehui" : "icon-color" '>
-									{{item.money?Number(item.money):''}}<text class="yuan">元</text></view>
+									{{item.money?Number(item.money):''}}<text class="yuan">元</text>
+								</view>
 								<view class="ling" v-if="!item.isUse" :class='item.isUse ? "pricehui" : "icon-color" '
 									@click="getCoupon(item.id,index)">领取</view>
 								<view class="ling" v-else :class='item.isUse ? "pricehui fonthui" : "icon-color" '>已领取
@@ -353,8 +354,10 @@
 			this.navH = app.globalData.navHeight;
 			let info = uni.createSelectorQuery().select(".mp-header");
 			info.boundingClientRect(function(data) {
-				self.marTop = data.height
-				self.poTop = Number(data.height) + 84
+				if (data) {
+					self.marTop = data.height
+					self.poTop = Number(data.height) + 84
+				}
 			}).exec()
 			// #endif
 			// #ifndef MP
@@ -973,7 +976,7 @@
 			.serch-wrapper {
 				margin-top: var(--status-bar-height);
 				align-items: center;
-				
+
 				/* #ifdef MP-WEIXIN */
 				width: 75%;
 				/* #endif */
