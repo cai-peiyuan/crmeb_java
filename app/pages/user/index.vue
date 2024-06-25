@@ -1,5 +1,5 @@
 <template>
-	<view class="new-users copy-data" ><!-- 去掉了   :style="{height:pageHeight}" -->
+	<view class="new-users copy-data"><!-- 去掉了   :style="{height:pageHeight}" -->
 		<view class="mid" style="flex:1;overflow: hidden;">
 			<scroll-view scroll-y="true" style="height: 100%;">
 				<view class="bg"></view>
@@ -111,8 +111,8 @@
 							<!-- #endif -->
 						</view>
 					</view>
-					<image src="/static/images/support.png" alt="" class='support'>
-					<view class="uni-p-b-98"></view>
+					<image v-if="showSupport" src="/static/images/support.png" alt="" class='support'>
+						<view class="uni-p-b-98"></view>
 				</view>
 
 			</scroll-view>
@@ -125,12 +125,24 @@
 <script>
 	let sysHeight = uni.getSystemInfoSync().statusBarHeight + 'px';
 	import Cache from '@/utils/cache';
-	import {BACK_URL} from '@/config/cache';
-	import {getMenuList} from '@/api/user.js';
-	import {orderData} from '@/api/order.js';
-	import {toLogin} from '@/libs/login.js';
-	import {getCity} from '@/api/api.js';
-	import {mapGetters} from "vuex";
+	import {
+		BACK_URL
+	} from '@/config/cache';
+	import {
+		getMenuList
+	} from '@/api/user.js';
+	import {
+		orderData
+	} from '@/api/order.js';
+	import {
+		toLogin
+	} from '@/libs/login.js';
+	import {
+		getCity
+	} from '@/api/api.js';
+	import {
+		mapGetters
+	} from "vuex";
 	// #ifdef H5
 	import Auth from '@/libs/wechat';
 	// #endif
@@ -147,6 +159,7 @@
 		computed: mapGetters(['isLogin', 'chatUrl', 'userInfo', 'uid']),
 		data() {
 			return {
+				showSupport: false,
 				orderMenu: [{
 						img: '/static/images/order1.png',
 						title: '待付款',
@@ -314,7 +327,7 @@
 					res.data.routine_my_menus.map((item) => {
 						if (item.url.indexOf('service') !== -1) that.servicePic = item.pic
 					})
-					if(res.data.routine_my_banner){
+					if (res.data.routine_my_banner) {
 						that.imgUrls = res.data.routine_my_banner
 					}
 				});
@@ -373,12 +386,13 @@
 		position: absolute;
 		left: 0;
 		top: 0;
-		width:100%;
+		width: 100%;
 		height: 420rpx;
 		background-image: url('~@/static/images/user_bg.png');
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
 	}
+
 	.contenBox {
 		padding: 0 30rpx;
 	}
@@ -421,6 +435,7 @@
 				width: 100%;
 				margin: 0 auto;
 				padding: 35rpx 0 30rpx 0;
+
 				.user-info {
 					z-index: 20;
 					position: relative;
@@ -527,7 +542,7 @@
 				padding: 30rpx 16rpx;
 				position: relative;
 				z-index: 11;
-                
+
 				.order-hd {
 					justify-content: space-between;
 					font-size: 30rpx;
