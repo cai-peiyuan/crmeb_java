@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
     <!-- 根据需要自行配置 -->
-    <property name="APP_NAME" value="Crmeb"/>
-    <property name="log.path" value="./crmeb_log"></property>
+    <property name="APP_NAME" value="CrmebAdmin"/>
+    <property name="log.path" value="./crmeb_admin_log"></property>
 
     <!--"@timestamp": "2019-06-27T09:59:41.897+08:00",-->
     <!--"@version": "1",-->
@@ -217,7 +217,7 @@
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_HOME}/${APP_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log.path}/${APP_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
 
     </appender>

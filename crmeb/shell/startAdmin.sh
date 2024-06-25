@@ -4,13 +4,13 @@
 startTime=`date +'%Y-%m-%d %H:%M:%S'`
 
 #接口项目站点路径（目录按照各自配置）
-APP_PATH=/www/wwwroot/api.java.crmeb.net
+APP_PATH=/data/crmeb
 
 #jar包文件名称
 APP_NAME=$APP_PATH/Crmeb-admin.jar
 
 #日志文件名称
-LOG_FILE=$APP_PATH/crmeb_out.log
+LOG_FILE=$APP_PATH/crmeb_admin_out.log
 
 #启动环境   # 如果需要配置数据和redis，请在 application-prod.yml中修改, 用jar命令修改即可
 APP_YML=--spring.profiles.active=prod
@@ -40,7 +40,7 @@ if test -e $APP_NAME;then
 # 启动jar包，指向日志文件，2>&1 & 表示打开或指向同一个日志文件  --spring.profiles.active=prod 启动 prod环境
 
 
-  nohup java -jar $APP_NAME $APP_YML  > crmeb_out.log 2>&1 &
+  nohup java -jar $APP_NAME $APP_YML  > $LOG_FILE 2>&1 &
   echo "正在发布中，请稍后......"
   sleep 10s
 
@@ -50,10 +50,10 @@ if test -e $APP_NAME;then
       success=`grep "Started CrmebAdminApplication in " $LOG_FILE`
       if [[ "$success" != "" ]]
       then
-#          echo "Crmeb start ........."
+          echo "Crmeb starting ........."
           break
       else
-#          echo "Crmeb Running ......."
+          echo "Crmeb Running ......."
           sleep 1s
       fi
 
@@ -65,7 +65,7 @@ if test -e $APP_NAME;then
           tail -f $LOG_FILE
           break
       else
-#          echo "Crmeb Running ......."
+          echo "Crmeb Running ......."
           sleep 1s
       fi
 
@@ -83,7 +83,7 @@ echo "本次运行时间： "$total"s"
 echo "当前时间："$endTime
 
 
- 
+
 else
   echo '$APP_NAME 文件不存在,请检查。'
 fi

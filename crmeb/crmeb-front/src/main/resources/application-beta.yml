@@ -3,7 +3,7 @@ crmeb:
   version: CRMEB-JAVA-KY-v1.3.4 # 当前代码版本
 
 server:
-  port: 20009
+  port: 20002
 
 spring:
   profiles:
