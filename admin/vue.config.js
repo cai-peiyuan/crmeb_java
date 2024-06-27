@@ -25,8 +25,9 @@ module.exports = {
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
   transpileDependencies: ['element-ui', 'vuex', 'js-cookie', '@babel', 'resize-detector'],
-  publicPath: '/',
-  outputDir: 'dist',
+  publicPath: process.env.NODE_ENV === 'production' ? '/xdyx/' : '/xdyx/',
+  baseUrl: process.env.NODE_ENV === 'production' ? '/xdyx/' : '/xdyx/',
+  outputDir: process.env.NODE_ENV === 'production' ? 'xdyx' : 'xdyx',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
@@ -47,8 +48,7 @@ module.exports = {
         '@': resolve('src')
       }
     },
-    plugins:[
-    ]
+    plugins: []
   },
   chainWebpack(config) {
     config.entry.app = ['babel-polyfill', './src/main.js']

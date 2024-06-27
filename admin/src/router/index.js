@@ -153,8 +153,9 @@ export const asyncRoutes = [
 ]
 
 const createRouter = () => new Router({
+  base: process.env.NODE_ENV === 'production' ? '/crmeb' : '/crmeb',
   // mode: 'history', // require service support
-  mode: 'history',
+  mode: 'hash', //'history',
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
