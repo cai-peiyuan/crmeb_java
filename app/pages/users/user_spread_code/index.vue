@@ -176,7 +176,7 @@
 				}
 				let arrImagesUrl = "";
 				uni.downloadFile({
-					url: this.base64List[0],
+					url: that.$util.setDomain(this.base64List[0]),
 					success: (res) => {
 						arrImagesUrl = res.tempFilePath;
 					}
@@ -277,12 +277,13 @@
 				this.isShowAuth = e
 			},
 			bindchange(e) {
+				let that = this;
 				let base64List = this.base64List;
 				let index = e.detail.current;
 				this.swiperIndex = index;
 				let arrImagesUrl = "";
 				uni.downloadFile({
-					url: base64List[index],
+					url: that.$util.setDomain(base64List[index]),
 					success: (res) => {
 						arrImagesUrl = res.tempFilePath;
 						setTimeout(() => {

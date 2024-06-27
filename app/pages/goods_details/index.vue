@@ -246,7 +246,7 @@
 		</view>
 		<view class="canvas" v-else>
 			<canvas style="width:750px;height:1190px;" canvas-id="firstCanvas"></canvas>
-			<canvas canvas-id="qrcode" :style="{width: `${qrcodeSize}px`, height: `${qrcodeSize}px`}" />
+			<canvas canvas-id="qrcode" :style="{width: `${qrcodeSize}px`, height: `${qrcodeSize}px`}"></canvas>
 		</view>
 		<!-- 发送给朋友图片 -->
 		<view class="share-box" v-if="H5ShareBox">
@@ -269,7 +269,9 @@
 		getProductGood,
 		getReplyProduct
 	} from '@/api/store.js';
-	import { spread } from "@/api/user";
+	import {
+		spread
+	} from "@/api/user";
 	import {
 		getCoupons
 	} from '@/api/api.js';
@@ -279,7 +281,9 @@
 	import {
 		toLogin
 	} from '@/libs/login.js';
-	import {computeUser} from "@/api/user.js";
+	import {
+		computeUser
+	} from "@/api/user.js";
 	import {
 		mapGetters
 	} from "vuex";
@@ -304,6 +308,9 @@
 	import {
 		getQrcode
 	} from '@/api/api.js';
+	import {
+		getProductCode
+	} from '@/api/store.js'
 	// #endif
 	let app = getApp();
 	export default {
@@ -408,7 +415,7 @@
 					if (newV == true) {
 						that.getCouponList();
 						that.getCartCount();
-						//that.downloadFilePromotionCode();
+						that.downloadFilePromotionCode();
 					}
 				},
 				deep: true
@@ -433,12 +440,12 @@
 			// #endif
 			// #ifdef MP || APP-PLUS
 			// 小程序链接进入获取绑定关系id
-			setTimeout(()=>{
-				if(options.spread){
+			setTimeout(() => {
+				if (options.spread) {
 					app.globalData.spread = options.spread;
 					spread(options.spread).then(res => {})
 				}
-			},2000)
+			}, 2000)
 			// #endif
 			uni.getSystemInfo({
 				success: function(res) {
@@ -460,10 +467,10 @@
 					let mapeMpQrCodeValue = that.$util.formatMpQrCodeData(qrCodeValue);
 					app.globalData.spread = mapeMpQrCodeValue.spread;
 					this.id = mapeMpQrCodeValue.id;
-					setTimeout(()=>{
+					setTimeout(() => {
 						spread(mapeMpQrCodeValue.spread).then(res => {}).catch(res => {})
-					},2000)
-					
+					}, 2000)
+
 				} else {
 					this.id = options.id;
 				}
@@ -475,6 +482,10 @@
 			this.getProductReplyList();
 			this.getProductReplyCount();
 			this.getGoods();
+			if (that.isLogin) {
+				//that.getCartCount();
+				//that.downloadFilePromotionCode();
+			}
 		},
 		onReady() {
 			this.$nextTick(function() {
@@ -774,16 +785,16 @@
 						title: productInfo.storeName.substring(0, 7) + "..."
 					})
 					let productAttr = this.attr.productAttr.map(item => {
-					return {
-						attrName : item.attrName,
-						attrValues: item.attrValues.split(','),
-						id:item.id,
-						isDel:item.isDel,
-						productId:item.productId,
-						type:item.type
-					 }
+						return {
+							attrName: item.attrName,
+							attrValues: item.attrValues.split(','),
+							id: item.id,
+							isDel: item.isDel,
+							productId: item.productId,
+							type: item.type
+						}
 					});
-					this.$set(this.attr,'productAttr',productAttr);
+					this.$set(this.attr, 'productAttr', productAttr);
 					if (that.isLogin) {
 						that.getCartCount();
 						//#ifdef H5
@@ -806,6 +817,7 @@
 					// #endif
 					that.DefaultSelect();
 				}).catch(err => {
+					console.log("状态异常", err)
 					//状态异常返回上级页面
 					return that.$util.Tips({
 						title: err.toString()
@@ -1147,18 +1159,11 @@
 			posterImageClose: function() {
 				this.canvasStatus = false
 			},
-			//替换安全域名
-			setDomain: function(url) {
-				url = url ? url.toString() : '';
-				//本地调试打开,生产请注销
-				if (url.indexOf("https://") > -1) return url;
-				else return url.replace('http://', 'https://');
-			},
 			//获取海报产品图（解决跨域问题，只适用于小程序）
 			downloadFilestoreImage: function() {
 				let that = this;
 				uni.downloadFile({
-					url: that.setDomain(that.productInfo.image),
+					url: that.$util.setDomain(that.productInfo.image),
 					success: function(res) {
 						that.storeImage = res.tempFilePath;
 					},
@@ -1183,6 +1188,7 @@
 					path: 'pages/goods_details/index'
 				}
 				getQrcode(data).then(res => {
+					console.log("获取商品二维码", data);
 					base64src(res.data.code, res => {
 						that.PromotionCode = res;
 					});
@@ -1193,7 +1199,7 @@
 			},
 			// 生成二维码；
 			make(uid) {
-				let href = location.href.split('?')[0] + "?id="+ this.id + "&spread="  + this.uid;
+				let href = location.href.split('?')[0] + "?id=" + this.id + "&spread=" + this.uid;
 				uQRCode.make({
 					canvasId: 'qrcode',
 					text: href,
@@ -1228,7 +1234,7 @@
 				getProductCode(that.id)
 					.then(res => {
 						uni.downloadFile({
-							url: that.setDomain(res.data.code),
+							url: that.$util.setDomain(res.data.code),
 							success: function(res) {
 								that.$set(that, 'isDown', false);
 								if (typeof successFn == 'function') successFn && successFn(res
@@ -1251,6 +1257,7 @@
 			 */
 			goPoster: function() {
 				let that = this;
+				console.log("that.PromotionCode", that.PromotionCode)
 				uni.showLoading({
 					title: '海报生成中',
 					mask: true
@@ -1258,13 +1265,13 @@
 				that.posters = false;
 				let arrImagesUrl = '';
 				let arrImagesUrlTop = '';
-				if (!that.PromotionCode) {
-					uni.hideLoading();
-					that.$util.Tips({
-						title: that.errT
-					});
-					return
-				}
+				// if (!that.PromotionCode) {
+				// 	uni.hideLoading();
+				// 	that.$util.Tips({
+				// 		title: that.errT
+				// 	});
+				// 	return
+				// }
 				setTimeout(() => {
 					if (!that.imgTop) {
 						uni.hideLoading();
@@ -1275,7 +1282,7 @@
 					}
 				}, 1000);
 				uni.downloadFile({
-					url: that.imgTop, //仅为示例，并非真实的资源
+					url: that.$util.setDomain(that.imgTop), //仅为示例，并非真实的资源
 					success: (res) => {
 						arrImagesUrlTop = res.tempFilePath;
 						let arrImages = [that.posterbackgd, arrImagesUrlTop, that.PromotionCode];
@@ -1289,6 +1296,7 @@
 									that.canvasStatus = true;
 									uni.hideLoading();
 								});
+							uni.hideLoading();
 						}, 500);
 					}
 				});
@@ -1376,7 +1384,7 @@
 
 <style scoped lang="scss">
 	.product-con {
-		
+
 		height: 100%;
 	}
 
