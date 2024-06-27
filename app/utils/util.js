@@ -182,7 +182,7 @@ export default {
 			success: function(res) {
 				const WIDTH = res.width;
 				const HEIGHT = res.height;
-				// ctx.drawImage(arr2[0], 0, 0, WIDTH, 1050);
+				ctx.drawImage(arr2[0], 0, 0, WIDTH, 1050);
 				ctx.drawImage(arr2[1], 0, 0, WIDTH, WIDTH);
 				ctx.save();
 				let r = 110;
@@ -191,7 +191,9 @@ export default {
 				let cy = 790;
 				ctx.arc(cx + r, cy + r, r, 0, 2 * Math.PI);
 				// ctx.clip();
-				ctx.drawImage(arr2[2], cx, cy, d, d);
+				if (arr2[2] && arr2[2] != "") {
+					ctx.drawImage(arr2[2], cx, cy, d, d);
+				}
 				ctx.restore();
 				const CONTENT_ROW_LENGTH = 20;
 				let [contentLeng, contentArray, contentRows] = that.textByteLength(store_name,
@@ -259,6 +261,9 @@ export default {
 						success: function(res) {
 							// uni.hideLoading();
 							successFn && successFn(res.tempFilePath);
+						},
+						fail: fail => {
+							console.log("生成海报失败", fail)
 						}
 					})
 				});
@@ -324,7 +329,7 @@ export default {
 	 * @param string count 剩余人数
 	 * @param function successFn 回调函数
 	 */
-	activityCanvas: function(arrImages, storeName, price, people, count,num,successFn) {
+	activityCanvas: function(arrImages, storeName, price, people, count, num, successFn) {
 		let that = this;
 		let rain = 2;
 		const context = uni.createCanvasContext('activityCanvas');
@@ -339,33 +344,34 @@ export default {
 			src: arrImages[0],
 			success: function(res) {
 				context.drawImage(arrImages[0], 0, 0, 594, 850);
-				context.setFontSize(14*rain);
+				context.setFontSize(14 * rain);
 				context.setFillStyle('#333333');
-				that.canvasWraptitleText(context, storeName, 110*rain, 110*rain, 230*rain, 30*rain, 1)
-				context.drawImage(arrImages[2], 68*rain, 194*rain, 160*rain, 160*rain);
+				that.canvasWraptitleText(context, storeName, 110 * rain, 110 * rain, 230 * rain, 30 *
+					rain, 1)
+				context.drawImage(arrImages[2], 68 * rain, 194 * rain, 160 * rain, 160 * rain);
 				context.save();
 
-				context.setFontSize(14*rain);
+				context.setFontSize(14 * rain);
 				context.setFillStyle('#fc4141');
-				context.fillText('￥', 157*rain, 145*rain);
+				context.fillText('￥', 157 * rain, 145 * rain);
 
-				context.setFontSize(24*rain);
+				context.setFontSize(24 * rain);
 				context.setFillStyle('#fc4141');
-				context.fillText(price, 170*rain, 145*rain);
+				context.fillText(price, 170 * rain, 145 * rain);
 
-				context.setFontSize(10*rain);
+				context.setFontSize(10 * rain);
 				context.setFillStyle('#fff');
-				context.fillText(people, 118*rain, 143*rain);
+				context.fillText(people, 118 * rain, 143 * rain);
 
 
-				context.setFontSize(12*rain);
+				context.setFontSize(12 * rain);
 				context.setFillStyle('#666666');
 				context.setTextAlign('center');
-				context.fillText( count , (167-num)*rain, 166*rain);
+				context.fillText(count, (167 - num) * rain, 166 * rain);
 
-				that.handleBorderRect(context, 27*rain, 94*rain, 75*rain, 75*rain, 6*rain);
+				that.handleBorderRect(context, 27 * rain, 94 * rain, 75 * rain, 75 * rain, 6 * rain);
 				context.clip();
-				context.drawImage(arrImages[1], 27*rain, 94*rain, 75*rain, 75*rain);
+				context.drawImage(arrImages[1], 27 * rain, 94 * rain, 75 * rain, 75 * rain);
 				context.draw(true, function() {
 					uni.canvasToTempFilePath({
 						canvasId: 'activityCanvas',
@@ -453,7 +459,8 @@ export default {
 				uni.showLoading({
 					title: '图片上传中',
 				});
-				let urlPath = HTTP_ADMIN_URL + '/api/admin/upload/image' + "?model=" + model + "&pid=" + pid
+				let urlPath = HTTP_ADMIN_URL + '/api/admin/upload/image' + "?model=" + model + "&pid=" +
+					pid
 				let localPath = res.tempFilePaths[0];
 				uni.uploadFile({
 					url: urlPath,
@@ -536,23 +543,23 @@ export default {
 	/**根据格式组装公共参数
 	 * @param {Object} value
 	 */
-	formatMpQrCodeData(value){
+	formatMpQrCodeData(value) {
 		let values = value.split(',');
 		let result = {};
-		if(values.length === 2){
+		if (values.length === 2) {
 			let v1 = values[0].split(":");
 			if (v1[0] === 'pid') {
 				result.spread = v1[1];
-			} else{
+			} else {
 				result.id = v1[1];
 			}
 			let v2 = values[1].split(":");
 			if (v2[0] === 'pid') {
 				result.spread = v2[1];
-			}else{
+			} else {
 				result.id = v2[1];
 			}
-		}else{
+		} else {
 			result = values[0].split(":")[1];
 		}
 		return result;
@@ -780,8 +787,6 @@ export default {
 		if (url.indexOf("https://") > -1) return url;
 		else return url.replace('http://', 'https://');
 	},
-
-
 
 	/**
 	 * 姓名除了姓显示其他
