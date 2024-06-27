@@ -85,6 +85,15 @@ public class ProductController {
     public CommonResult<ProductDetailResponse> getDetail(@PathVariable Integer id, @RequestParam(value = "type", defaultValue = "normal") String type) {
         return CommonResult.success(productService.getDetail(id, type));
     }
+    /**
+     * 商品推广码
+     */
+    @ApiOperation(value = "商品推广码")
+    @RequestMapping(value = "/product/code/{id}", method = RequestMethod.GET)
+    @ApiImplicitParam(name = "user_type", value = "routine-小程序，''-其他")
+    public CommonResult<ProductDetailResponse> getCode(@PathVariable Integer id, @RequestParam(value = "user_type", defaultValue = "") String userType) {
+        return CommonResult.success(productService.getDetail(id, "normal"));
+    }
 
     /**
      * 商品评论列表
