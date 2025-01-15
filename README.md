@@ -4,12 +4,13 @@
 </div>
 <div align="center">
 
-# CRMEB开源商城系统Java版
+CRMEB开源商城系统Java版
 
 </div>
+
 <div align="center" >
     <a href="http://www.crmeb.com">
-        <img src="https://img.shields.io/badge/License-GPL3.0-green.svg?style=flat" />
+        <img src="https://img.shields.io/badge/License-apache2.0-green.svg?style=flat" />
     </a>
     <a href='https://gitee.com/ZhongBangKeJi/crmeb_java/members'>
         <img src='https://gitee.com/ZhongBangKeJi/crmeb_java/badge/fork.svg?theme=dark' alt='fork'></img>
@@ -18,6 +19,8 @@
         <img src='https://gitee.com/ZhongBangKeJi/crmeb_java/badge/star.svg?theme=dark' alt='star'></img>
     </a>
 </div>
+
+####
 
 <div align="center">
 
@@ -29,6 +32,7 @@
 [comment]: <> ([宽屏预览]&#40;https://gitee.com/ZhongBangKeJi/crmeb_java/blob/master/README.md&#41;)
 
 </div>
+
 <div align="center" >
     <a href="https://gitee.com/ZhongBangKeJi/crmeb_java/blob/master/README.md">宽 屏 预 览</a>
 </div>
@@ -36,6 +40,7 @@
 <div align="center">
     如果对您有帮助，您可以点右上角 "Star" ❤️ 支持一下 谢谢！
 </div>
+
 
 ---
 
@@ -99,7 +104,7 @@ CRMEB开源商城PHP：https://gitee.com/ZhongBangKeJi/CRMEB
 
 ---
 
-[![](crmeb/crmebimage/crmebimage/demoimage/gitee-广告_java多商户.jpg)](https://www.crmeb.com/ask/thread/46123)
+[![](crmeb/crmebimage/crmebimage/demoimage/gitee-广告_java多商户.jpg)](https://www.crmeb.com/index/java_merchant)
 
 
 ### 🎬 系统演示：
@@ -133,17 +138,19 @@ WEBPC管理端：https://admin.java.crmeb.net<br>
 
 
 ### 📱 移动端预览
-![](crmeb/crmebimage/crmebimage/demoimage/03-mobile-01.png)
+<!-- ![](crmeb/crmebimage/crmebimage/demoimage/03-mobile-01.png)
 ![](crmeb/crmebimage/crmebimage/demoimage/04-mobile-02.png)
-![](crmeb/crmebimage/crmebimage/demoimage/05-mobile-03.png)
+![](crmeb/crmebimage/crmebimage/demoimage/05-mobile-03.png) -->
+![](crmeb/crmebimage/crmebimage/demoimage/001front.jpg)
 
 ### WEB PC管理端预览
-![](crmeb/crmebimage/crmebimage/demoimage/07-pc-01.png)
+<!-- ![](crmeb/crmebimage/crmebimage/demoimage/07-pc-01.png)
 ![](crmeb/crmebimage/crmebimage/demoimage/08-pc-02.png)
 ![](crmeb/crmebimage/crmebimage/demoimage/09-pc-03.png)
 ![](crmeb/crmebimage/crmebimage/demoimage/10-pc-04.png)
 ![](crmeb/crmebimage/crmebimage/demoimage/11-pc-05.png)
-![](crmeb/crmebimage/crmebimage/demoimage/12-pc-06.png)
+![](crmeb/crmebimage/crmebimage/demoimage/12-pc-06.png) -->
+![](crmeb/crmebimage/crmebimage/demoimage/001admin.jpg)
 
 ![](crmeb/crmebimage/crmebimage/demoimage/13yemiandesiner-min.gif)
 ![](crmeb/crmebimage/crmebimage/demoimage/14yijianhuanse-min.gif)
@@ -170,7 +177,7 @@ CRMEB JAVA 技术交流QQ群 3群 640230510 🈵️ 群已满<br>
 ![](crmeb/crmebimage/crmebimage/demoimage/qqcus.jpg) -->
 使用中遇到bug 或者问题可以在gitee 上提 Issues
 
----
+<!-- ---
 
 ### 💌 特别鸣谢
 核心开发团队
@@ -185,7 +192,7 @@ UI: 被子横盖显得高🐰
 
 测试: 请叫我绵绵🐏, 夏天
 
----
+--- -->
 
 ### 🔔 使用须知
 1.允许用于个人学习、毕业设计、教学案例、公益事业、商业使用;<br>
@@ -195,7 +202,7 @@ UI: 被子横盖显得高🐰
 ---
 ### 🪪 版权信息
 本项目包含的第三方源码和二进制文件之版权信息另行标注。<br>
-版权所有Copyright © 2017-2022 by CRMEB (https://www.crmeb.com)<br>
+版权所有Copyright © 2017-2024 by CRMEB (https://www.crmeb.com)<br>
 All rights reserved。<br>
 CRMEB® 商标和著作权所有者为西安众邦网络科技有限公司。<br>
 
